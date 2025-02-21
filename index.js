@@ -34,6 +34,8 @@ app.get("/", async (req, res) => {
     if (result.rows && result.rows.length > 0) {
       const items = result.rows;
       console.log(items);
+      // res.status(200).json(items)
+    
       res.render("index.ejs", {
         listTitle: "Today",
         listItems: items
@@ -55,13 +57,10 @@ app.get("/", async (req, res) => {
 app.post("/add", async (req, res) => {
   const item = req.body.newItem;
 
-  const result = await db.query("SELECT * FROM items");
-  const items = result.rows;
+  // const result = await db.query("SELECT * FROM items");
+  // const items = result.rows;
 
   db.query("INSERT INTO items (title) VALUES ($1)", [item])
-  const id = items.length + 1;
-
-  items.push({ id: id, title: item });
   console.log(items)
   res.redirect("/");
 });
