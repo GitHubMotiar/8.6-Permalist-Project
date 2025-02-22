@@ -35,7 +35,7 @@ app.get("/", async (req, res) => {
       const items = result.rows;
       console.log(items);
       // res.status(200).json(items)
-    
+
       res.render("index.ejs", {
         listTitle: "Today",
         listItems: items
@@ -57,8 +57,6 @@ app.get("/", async (req, res) => {
 app.post("/add", async (req, res) => {
   const item = req.body.newItem;
 
-  // const result = await db.query("SELECT * FROM items");
-  // const items = result.rows;
 
   db.query("INSERT INTO items (title) VALUES ($1)", [item])
   console.log(items)
@@ -78,18 +76,18 @@ app.post("/edit", async (req, res) => {
   }
 });
 
-app.post("/delete", async(req, res) => { 
+app.post("/delete", async (req, res) => {
 
-const id= req.body.deleteItemId;
+  const id = req.body.deleteItemId;
 
-try{
-      await db.query("DELETE FROM items WHERE id = $1", [id])
-      res.redirect("/")
+  try {
+    await db.query("DELETE FROM items WHERE id = $1", [id])
+    res.redirect("/")
 
-}catch (err){
-  console.log(err);
+  } catch (err) {
+    console.log(err);
 
-}
+  }
 
 
 
